@@ -1,5 +1,6 @@
 import React from "react";
 import { Heart, Mail, Phone, MapPin } from "lucide-react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -32,22 +33,25 @@ const Footer = () => {
             </h3>
             <ul className="flex flex-col gap-4 text-sm">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/" className="hover:text-white transition-colors">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="/aboutSection"
+                  className="hover:text-white transition-colors"
+                >
                   About
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/contactSection"
                   className="hover:text-white transition-colors"
                 >
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -59,19 +63,28 @@ const Footer = () => {
             </h3>
             <ul className="flex flex-col gap-4 text-sm">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="/babyCareService"
+                  className="hover:text-white transition-colors"
+                >
                   Baby Care
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="/elderlyCareService"
+                  className="hover:text-white transition-colors"
+                >
                   Elderly Care
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="/sickCareService"
+                  className="hover:text-white transition-colors"
+                >
                   Sick Care
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
