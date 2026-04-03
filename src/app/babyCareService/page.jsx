@@ -3,6 +3,7 @@
 import React from "react";
 import { CheckCircle2, Baby } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const BabyCareService = () => {
   const benefits = [
@@ -16,9 +17,7 @@ const BabyCareService = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-800">
-      {/* Hero Section */}
       <div className="relative h-[650px] w-full overflow-hidden">
-        {/* Image zoom animation */}
         <motion.img
           src="/baby-care.jpg"
           alt="Baby Care Hero"
@@ -28,10 +27,8 @@ const BabyCareService = () => {
           transition={{ duration: 1.5 }}
         />
 
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black/20 flex items-center">
           <div className="max-w-6xl mx-auto px-6 w-full">
-            {/* Title animation */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -52,7 +49,6 @@ const BabyCareService = () => {
         <div className="flex flex-col lg:flex-row gap-12">
           {/* LEFT */}
           <div className="lg:w-2/3">
-            {/* About Section */}
             <motion.section
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -71,7 +67,6 @@ const BabyCareService = () => {
               </p>
             </motion.section>
 
-            {/* Benefits */}
             <section>
               <h2 className="text-3xl font-serif font-bold mb-8 text-slate-900">
                 Benefits
@@ -120,13 +115,12 @@ const BabyCareService = () => {
                 </div>
               </div>
 
-              {/* Button hover animation */}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2"
               >
-                Book Service →
+                <Link href="/babyBooking">Book Service</Link>
               </motion.button>
             </div>
           </motion.div>

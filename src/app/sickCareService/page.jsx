@@ -77,7 +77,7 @@ const SickCareService = () => {
               <p className="text-slate-500 leading-relaxed text-[17px]">
                 Professional medical caregivers for patients recovering at home,
                 post-surgery, or managing chronic conditions. Our team includes
-                trained nurses who work closely with your doctor's instructions
+                trained nurses who work closely with your doctors instructions
                 to ensure optimal recovery.
               </p>
             </motion.section>

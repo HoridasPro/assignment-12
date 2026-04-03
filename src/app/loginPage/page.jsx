@@ -5,14 +5,11 @@ import Link from "next/link";
 const LoginPage = () => {
   return (
     <div className="  w-full flex items-center justify-center p-10 bg-gradient-to-br from-[#e0f7fa] via-white to-[#fff8e1]">
-      {/* Login Card */}
       <div className="w-full max-w-[480px] bg-white p-12 rounded-[2rem] shadow-xl shadow-gray-100 border border-gray-100 flex flex-col items-center">
-        {/* Top Heart Icon */}
         <div className="mb-2">
           <Heart className="text-[#0ea5e9]" size={40} strokeWidth={1.5} />
         </div>
 
-        {/* Title and Subtitle */}
         <h2
           className="text-3xl font-bold text-[#0f172a] mb-3"
           style={{ fontFamily: "serif" }}
@@ -23,9 +20,7 @@ const LoginPage = () => {
           Sign in to manage your bookings
         </p>
 
-        {/* Form */}
         <form className="w-full space-y-2">
-          {/* Email Field */}
           <div>
             <label className="block text-gray-600 mb-2 font-medium text-sm">
               Email
@@ -37,7 +32,6 @@ const LoginPage = () => {
             />
           </div>
 
-          {/* Password Field */}
           <div className="pb-4">
             <label className="block text-gray-600 mb-2 font-medium text-sm">
               Password
@@ -49,13 +43,11 @@ const LoginPage = () => {
             />
           </div>
 
-          {/* Sign In Button */}
           <button className="w-full bg-[#82d6f6] text-white py-4 rounded-xl font-bold text-lg hover:bg-[#0ea5e9] transition-all shadow-lg shadow-sky-100 flex items-center justify-center">
             Login
           </button>
         </form>
 
-        {/* Bottom Link */}
         <div className="mt-10 text-center text-sm">
           <p className="text-gray-500">
             Do not have an account?{" "}

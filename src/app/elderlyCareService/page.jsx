@@ -3,6 +3,7 @@
 import React from "react";
 import { CheckCircle2, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const ElderlyCareService = () => {
   const benefits = [
@@ -14,7 +15,6 @@ const ElderlyCareService = () => {
     "24/7 emergency response",
   ];
 
-  // Animation Variants
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -22,7 +22,6 @@ const ElderlyCareService = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-800">
-      {/* Hero Section */}
       <motion.div
         className="relative h-[650px] w-full overflow-hidden"
         initial="hidden"
@@ -57,7 +56,6 @@ const ElderlyCareService = () => {
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-8 py-20">
         <div className="flex flex-col lg:flex-row gap-16">
-          {/* Left: Content and Benefits */}
           <motion.div
             className="lg:w-2/3"
             initial="hidden"
@@ -137,10 +135,10 @@ const ElderlyCareService = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98]">
+              <Link href="/babyCareBooking" className="w-full bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98]">
                 Book Service
                 <span className="text-2xl">→</span>
-              </button>
+              </Link>
             </div>
           </motion.div>
         </div>

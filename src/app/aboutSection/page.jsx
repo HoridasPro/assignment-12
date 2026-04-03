@@ -12,11 +12,11 @@ const AboutSection = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            observer.unobserve(entry.target); // Stop observing after animation
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2 }, // Trigger when 20% of the section is visible
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -80,7 +80,7 @@ const AboutSection = () => {
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
               } hover:shadow-md hover:-translate-y-1`}
-              style={{ transitionDelay: `${index * 150}ms` }} // Stagger animation
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="p-4 bg-[#f0f9ff] rounded-full mb-6">
                 <stat.Icon

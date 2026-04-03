@@ -42,11 +42,11 @@ const AboutSection = () => {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}
     >
-      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16  ">
         {/* Left Side: Content */}
         <div className="max-w-2xl space-y-6">
           <span className="inline-block bg-[#f0fdf4] text-[#166534] px-4 py-1 rounded-full text-sm font-bold">
-            About Us
+            About 
           </span>
 
           <h2
