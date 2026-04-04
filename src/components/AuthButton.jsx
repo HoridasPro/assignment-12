@@ -59,6 +59,14 @@ const AuthButton = ({ isMobile = false }) => {
                 >
                   <FaRegUser className="w-5 h-5" /> Profile
                 </Link>
+                
+                <Link
+                  href="/dashboard"
+                  className="flex items-center gap-2 px-2 py-2 text-sm hover:bg-gray-100 rounded-xl"
+                  onClick={() => setOpen(false)}
+                >
+                  <FaRegUser className="w-5 h-5" /> Dashboard
+                </Link>
 
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}

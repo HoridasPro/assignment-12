@@ -46,7 +46,7 @@ const AboutSection = () => {
         {/* Left Side: Content */}
         <div className="max-w-2xl space-y-6">
           <span className="inline-block bg-[#f0fdf4] text-[#166534] px-4 py-1 rounded-full text-sm font-bold">
-            About
+            About Us
           </span>
 
           <h2

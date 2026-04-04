@@ -2,11 +2,12 @@
 
 import { dbConnect } from "@/lib/dbConnect";
 
-export const postUser = async (payload) => {
+export const postUsers = async (payload) => {
   try {
     const collection = await dbConnect("babyCare");
 
     const newBabyCare = {
+      service: payload.service,
       type: payload.type,
       amount: payload.amount,
       role: "user",
@@ -27,7 +28,6 @@ export const postUser = async (payload) => {
         message: "Baby Booking successfully",
       };
     }
-
     return {
       success: false,
       message: "Insert failed",

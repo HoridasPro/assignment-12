@@ -19,7 +19,7 @@ const Navbar = () => {
   ].includes(pathname);
 
   return (
-    <nav className="bg-white border-b px-6 py-4 flex items-center justify-between">
+    <nav className="max-w-7xl mx-auto bg-white py-4 flex items-center justify-between">
       <Link href="/" className="flex items-center gap-2">
         <Heart className="text-[#0ea5e9]" size={28} />
         <h1 className="text-xl font-bold">

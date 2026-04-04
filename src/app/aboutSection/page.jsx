@@ -38,7 +38,7 @@ const AboutSection = () => {
   return (
     <section
       ref={sectionRef}
-      className={`bg-[#f8fafc] py-20 lg:py-15 px-6 transition-all duration-700 ease-out ${
+      className={`max-w-7xl mx-auto bg-[#f8fafc] py-20 lg:py-15 px-6 transition-all duration-700 ease-out ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}
     >

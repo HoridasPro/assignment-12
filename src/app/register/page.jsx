@@ -1,12 +1,14 @@
 "use client";
 
-import { postUser } from "@/actions/server/auth";
+// import { postUser } from "@/actions/server/auth";
 import SocialLogin from "@/components/SocialLogin";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import ImageUpload from "@/components/ImageUpload";
+import { postUser } from "@/actions/server/auth";
+// import { postUser } from "@/actions/server/auth";
 
 export default function RegisterPage() {
   const router = useRouter();

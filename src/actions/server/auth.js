@@ -3,14 +3,12 @@ import { dbConnect } from "@/lib/dbConnect";
 import bcrypt from "bcryptjs";
 
 export const postUser = async (payload) => {
+  const collection = await dbConnect("users");
   try {
-    const collection = await dbConnect("users");
-
     // Check User
     const existUser = await collection.findOne({
       email: payload.email.toLowerCase(),
     });
-
     if (existUser) {
       return {
         success: false,

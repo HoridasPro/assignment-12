@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
-import { postUser } from "@/actions/server/auth";
+import { postUsers } from "@/action/server/auth";
+ 
+ 
 
 const divisions = [
   "Dhaka",
@@ -17,6 +19,7 @@ const divisions = [
 ];
 
 const ElderlyBooking = () => {
+  const [service, setService] = useState("");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
   const [division, setDivision] = useState("");
@@ -32,6 +35,7 @@ const ElderlyBooking = () => {
     setLoading(true);
 
     const bookingData = {
+      service,
       type,
       amount,
       division,
@@ -43,7 +47,7 @@ const ElderlyBooking = () => {
     };
 
     try {
-      const result = await postUser(bookingData);
+      const result = await postUsers(bookingData);
 
       if (result?.success) {
         Swal.fire({
@@ -96,6 +100,15 @@ const ElderlyBooking = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
+              <div className="mb-4">
+                <label>Service</label>
+                <input
+                  type="text"
+                  value={service}
+                  onChange={(e) => setService(e.target.value)}
+                  className="w-full p-2 border rounded-lg"
+                />
+              </div>
               <div>
                 <label>Type</label>
                 <select
