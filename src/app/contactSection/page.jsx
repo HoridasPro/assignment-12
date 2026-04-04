@@ -34,7 +34,6 @@ const ContactSection = () => {
                 : "opacity-0 -translate-x-10"
             }`}
           >
-       
             <div className="flex items-center gap-5">
               <div className="bg-[#e0f2fe] p-4 rounded-xl">
                 <Mail className="text-[#0ea5e9]" size={24} />
@@ -45,7 +44,6 @@ const ContactSection = () => {
               </div>
             </div>
 
-           
             <div className="flex items-center gap-5">
               <div className="bg-[#e0f2fe] p-4 rounded-xl">
                 <Phone className="text-[#0ea5e9]" size={24} />
@@ -56,7 +54,6 @@ const ContactSection = () => {
               </div>
             </div>
 
-        
             <div className="flex items-center gap-5">
               <div className="bg-[#e0f2fe] p-4 rounded-xl">
                 <MapPin className="text-[#0ea5e9]" size={24} />

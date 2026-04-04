@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { CheckCircle2, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -135,7 +134,10 @@ const ElderlyCareService = () => {
                 </div>
               </div>
 
-              <Link href="/babyCareBooking" className="w-full bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98]">
+              <Link
+                href="/elderlyBooking"
+                className="w-full bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98]"
+              >
                 Book Service
                 <span className="text-2xl">→</span>
               </Link>

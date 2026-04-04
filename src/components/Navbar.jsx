@@ -1,16 +1,17 @@
 "use client";
+
 import { Heart, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import AuthButton from "./AuthButton";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const pathname = usePathname(); // current route
+  const pathname = usePathname();
 
   const isActive = (path) => pathname === path;
 
-  // Check if any service page is active
   const isServiceActive = [
     "/babyCareService",
     "/elderlyCareService",
@@ -18,16 +19,10 @@ const Navbar = () => {
   ].includes(pathname);
 
   return (
-    <nav className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-      {/* Logo Section */}
+    <nav className="bg-white border-b px-6 py-4 flex items-center justify-between">
       <Link href="/" className="flex items-center gap-2">
-        <Heart
-          className="text-[#0ea5e9]"
-          size={28}
-          fill="#0ea5e9"
-          fillOpacity={0.1}
-        />
-        <h1 className="text-xl font-bold text-gray-800">
+        <Heart className="text-[#0ea5e9]" size={28} />
+        <h1 className="text-xl font-bold">
           Care<span className="text-[#0ea5e9]">.xyz</span>
         </h1>
       </Link>
@@ -36,7 +31,7 @@ const Navbar = () => {
       <div className="flex items-center gap-8">
         <Link
           href="/"
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+          className={`px-4 py-2 rounded-lg font-medium ${
             isActive("/") ? "bg-sky-50" : "text-gray-600"
           }`}
         >
@@ -59,11 +54,12 @@ const Navbar = () => {
             Services
             <ChevronDown
               size={18}
-              className={`transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
+              className={`transition-transform ${
+                isDropdownOpen ? "rotate-180" : ""
+              }`}
             />
           </button>
 
-          {/* Dropdown Menu */}
           {isDropdownOpen && (
             <div className="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-xl shadow-lg py-2 z-50">
               <Link
@@ -124,24 +120,7 @@ const Navbar = () => {
 
       {/* Auth Buttons */}
       <div className="flex items-center gap-6">
-        <Link
-          href="/loginPage"
-          className={`font-medium transition-colors ${
-            isActive("/loginPage")
-              ? "text-[#0ea5e9]"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          Login
-        </Link>
-        <Link
-          href="/registerPage"
-          className={`bg-[#0ea5e9] text-white px-6 py-2 rounded-xl font-semibold hover:bg-[#0284c7] transition-colors shadow-md shadow-sky-100 ${
-            isActive("/registerPage") ? "ring-2 ring-sky-400" : ""
-          }`}
-        >
-          Register
-        </Link>
+        <AuthButton />
       </div>
     </nav>
   );

@@ -65,7 +65,7 @@ const AboutSection = () => {
 
           <p className="text-lg text-gray-500 leading-relaxed">
             From newborn care to elder companionship and patient recovery
-            support — we're here with gentle hands and warm hearts, whenever you
+            support we are here with gentle hands and warm hearts, whenever you
             need us.
           </p>
         </div>

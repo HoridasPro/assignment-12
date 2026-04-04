@@ -3,6 +3,7 @@
 import React from "react";
 import { Stethoscope, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const SickCareService = () => {
   const benefits = [
@@ -52,10 +53,8 @@ const SickCareService = () => {
         </div>
       </motion.div>
 
-      {/* Main Content Area */}
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* Left Column: Info */}
           <motion.div
             className="lg:w-2/3"
             initial="hidden"
@@ -133,10 +132,13 @@ const SickCareService = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-[#12a4e4] hover:bg-[#0e8bc4] text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]">
+              <Link
+                href="/sickBooking"
+                className="w-full bg-[#12a4e4] hover:bg-[#0e8bc4] text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]"
+              >
                 Book Service
                 <span className="text-xl font-light">→</span>
-              </button>
+              </Link>
             </div>
           </motion.div>
         </div>

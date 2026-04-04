@@ -12,7 +12,7 @@ const ServicesSection = () => {
         "Expert nannies and childcare professionals providing safe, nurturing environments for your little ones.",
       price: "৳500/hr",
       image: "/baby-care.jpg",
-      link: "/babyCareService", // Scrolls to this section
+      link: "/babyCareService",
     },
     {
       title: "Elderly Care",
@@ -21,7 +21,7 @@ const ServicesSection = () => {
         "Compassionate companions and skilled nurses for your aging loved ones, ensuring dignity and comfort.",
       price: "৳600/hr",
       image: "/elderly-care.jpg",
-      link: "/elderlyCareService", // Scrolls to this section
+      link: "/elderlyCareService",
     },
     {
       title: "Sick Care",
@@ -30,7 +30,7 @@ const ServicesSection = () => {
         "Professional medical caregivers for patients recovering at home, post-surgery, or with chronic conditions.",
       price: "৳800/hr",
       image: "/sick-care.jpg",
-      link: "/sickCareService", // Scrolls to this section
+      link: "/sickCareService",
     },
   ];
 
@@ -73,7 +73,7 @@ const ServicesSection = () => {
             className="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed"
           >
             Choose from our range of professional caregiving services, tailored
-            to your family's unique needs.
+            to your familys unique needs.
           </motion.p>
         </div>
 

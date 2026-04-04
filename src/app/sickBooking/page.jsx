@@ -48,16 +48,16 @@ const SickBooking = () => {
       if (result?.success) {
         Swal.fire({
           icon: "success",
-          title: "Booking Successful",
+          title: "Sick Booking Successful",
           text: "Redirecting...",
           confirmButtonColor: "#0ea5e9",
         }).then(() => {
-          // router.push("/login");
+          router.push("/login");
         });
       } else {
         Swal.fire({
           icon: "error",
-          title: "Booking Failed",
+          title: "Sick Booking Failed",
           text: result?.message || "Something went wrong",
           confirmButtonColor: "#0ea5e9",
         });
@@ -79,7 +79,7 @@ const SickBooking = () => {
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-800">Book Baby Care</h1>
+          <h1 className="text-3xl font-bold text-slate-800">Book Sick Care</h1>
           <p className="text-slate-500 mt-1">
             Fill in the details below to book your caregiver.
           </p>

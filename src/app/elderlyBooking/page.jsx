@@ -48,16 +48,16 @@ const ElderlyBooking = () => {
       if (result?.success) {
         Swal.fire({
           icon: "success",
-          title: "Booking Successful",
+          title: "Elderly Booking Successful",
           text: "Redirecting...",
           confirmButtonColor: "#0ea5e9",
         }).then(() => {
-          // router.push("/login");
+          router.push("/login");
         });
       } else {
         Swal.fire({
           icon: "error",
-          title: "Booking Failed",
+          title: "Elderly Booking Failed",
           text: result?.message || "Something went wrong",
           confirmButtonColor: "#0ea5e9",
         });

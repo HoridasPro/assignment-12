@@ -1,6 +1,8 @@
 import { dbConnect } from "@/lib/dbConnect";
 
 const careCollection = await dbConnect("babyCare");
+
+// Data Get
 export async function GET() {
   try {
     const result = await careCollection.find().toArray();
@@ -12,6 +14,7 @@ export async function GET() {
   }
 }
 
+// Data Post
 export async function POST(request) {
   try {
     const { message } = await request.json();

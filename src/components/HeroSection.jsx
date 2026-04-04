@@ -5,7 +5,6 @@ import { ShieldCheck, Clock, Heart } from "lucide-react";
 import Link from "next/link";
 
 const HeroSection = () => {
-  // Animation Variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -39,8 +38,6 @@ const HeroSection = () => {
           >
             Trusted by 10,000+ families
           </motion.div>
-
-          {/* Heading - Size adjusted to match image (4xl to 6xl) */}
           <motion.h1
             variants={fadeInUp}
             className="text-4xl md:text-5xl lg:text-[56px] font-serif font-bold text-slate-800 leading-[1.15] mb-5"
@@ -48,8 +45,6 @@ const HeroSection = () => {
             Compassionate Care <br />
             for Your <span className="text-[#12a4e4]">Loved Ones</span>
           </motion.h1>
-
-          {/* Paragraph - Smaller font and max-width as per image */}
           <motion.p
             variants={fadeInUp}
             className="text-slate-500 text-base md:text-[17px] max-w-[440px] mb-8 leading-relaxed font-medium"
@@ -106,7 +101,6 @@ const HeroSection = () => {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="relative lg:ml-auto"
         >
-          {/* Image Container with rounded corners */}
           <div className="relative rounded-[32px] overflow-hidden shadow-xl border-[6px] border-white">
             <img
               src="/hero-care.jpg"

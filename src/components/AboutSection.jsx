@@ -12,11 +12,11 @@ const AboutSection = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            observer.unobserve(entry.target); // Stop observing after animation
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2 }, // Trigger when 20% of the section is visible
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -46,7 +46,7 @@ const AboutSection = () => {
         {/* Left Side: Content */}
         <div className="max-w-2xl space-y-6">
           <span className="inline-block bg-[#f0fdf4] text-[#166534] px-4 py-1 rounded-full text-sm font-bold">
-            About 
+            About
           </span>
 
           <h2
@@ -65,7 +65,7 @@ const AboutSection = () => {
 
           <p className="text-lg text-gray-500 leading-relaxed">
             From newborn care to elder companionship and patient recovery
-            support — we're here with gentle hands and warm hearts, whenever you
+            support we are here with gentle hands and warm hearts, whenever you
             need us.
           </p>
         </div>
@@ -80,7 +80,7 @@ const AboutSection = () => {
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
               } hover:shadow-md hover:-translate-y-1`}
-              style={{ transitionDelay: `${index * 150}ms` }} // Stagger animation
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="p-4 bg-[#f0f9ff] rounded-full mb-6">
                 <stat.Icon

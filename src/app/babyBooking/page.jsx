@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
 import { postUser } from "@/actions/server/auth";
 
@@ -25,9 +24,7 @@ const BabyBooking = () => {
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // const router = useRouter();
   const ratePerUnit = 500;
-
   const handleBooking = async () => {
     setLoading(true);
 
@@ -48,16 +45,16 @@ const BabyBooking = () => {
       if (result?.success) {
         Swal.fire({
           icon: "success",
-          title: "Booking Successful",
+          title: "Baby Booking Successful",
           text: "Redirecting...",
           confirmButtonColor: "#0ea5e9",
         }).then(() => {
-          // router.push("/login");
+          router.push("/login");
         });
       } else {
         Swal.fire({
           icon: "error",
-          title: "Booking Failed",
+          title: "Baby Booking Failed",
           text: result?.message || "Something went wrong",
           confirmButtonColor: "#0ea5e9",
         });
