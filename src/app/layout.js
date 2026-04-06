@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NextAuthProvider from "@/provider/NextAuthProvider";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({ children }) {
       <body>
         <NextAuthProvider>
           <Navbar></Navbar>
-          <main className="min-h-[calc(100vh-395px)]">{children}</main>
+          <ReactQueryProvider>
+            <main className="min-h-[calc(100vh-395px)]">{children}</main>
+          </ReactQueryProvider>
           <Footer></Footer>
         </NextAuthProvider>
       </body>

@@ -1,103 +1,88 @@
-// "use client";
-
-// import { useSession } from "next-auth/react";
-// import Link from "next/link";
-
-// export default function DashboardLayout({ children }) {
-//   const { data: session, status } = useSession();
-
-//   return (
-//     <div className="flex min-h-screen">
-//       {/* Sidebar */}
-//       <div className="w-64 bg-slate-800 text-white p-5">
-//         <h2 className="text-xl font-bold mb-6">Dashboard</h2>
-
-//         <ul className="space-y-4">
-//           {status == "users" ? (
-//             <>
-//               <li>
-//                 <Link href="/dashboard/bookings">Bookings</Link>
-//               </li>
-//             </>
-//           ) : (
-//             <>
-//               <li>
-//                 <Link href="/dashboard/bookings">Bookings</Link>
-//               </li>
-//               <li>
-//                 <Link href="/dashboard/users">Users</Link>
-//               </li>
-//               <li>
-//                 <Link href="/dashboard">Home</Link>
-//               </li>
-//               <li>
-//                 <Link href="/dashboard/settings">Settings</Link>
-//               </li>
-//             </>
-//           )}
-//         </ul>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="flex-1 p-6 bg-slate-100">{children}</div>
-//     </div>
-//   );
-// }
 "use client";
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { LayoutDashboard, Users, Settings, BookOpen, Home } from "lucide-react";
 
 export default function DashboardLayout({ children }) {
   const { data: session, status } = useSession();
 
-  // সেশন লোড হওয়া পর্যন্ত অপেক্ষা করা ভালো
   if (status === "loading") {
-    return <div className="p-6">Loading...</div>;
+    return <div className="p-6 text-center">Loading...</div>;
   }
 
-  // ইউজার এডমিন কি না তা চেক করা
   const isUser = session?.user?.role === "user";
 
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-64 bg-slate-800 text-white p-5">
-        <h2 className="text-xl font-bold mb-6 text-sky-400">
+      <div className="w-64 bg-slate-900 text-black p-5 shadow-lg">
+        <h2 className="text-2xl font-bold mb-8 text-sky-400 flex items-center gap-2">
+          <LayoutDashboard size={22} />
           {isUser ? "User Dashboard" : "Admin Dashboard"}
         </h2>
 
-        <ul className="space-y-4">
-          {/* শুধুমাত্র এডমিন হলে নিচের মেনুগুলো দেখবে */}
+        <ul className="space-y-3">
           {isUser ? (
             <>
-              {/* ইউজার এবং এডমিন উভয়ই এটি দেখবে */}
               <li>
-                <Link href="/dashboard" className="hover:text-sky-400">
+                <Link
+                  href="/dashboard/userHome"
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700 transition"
+                >
+                  <Home size={18} />
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/bookings" className="hover:text-sky-400">
+                <Link
+                  href="/dashboard/userBooking"
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700 transition"
+                >
+                  <BookOpen size={18} />
                   My Bookings
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/dashboard/users"
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700 transition"
+                >
+                  <Users size={18} />
+                  Manage Users
                 </Link>
               </li>
             </>
           ) : (
             <>
               <li>
-                <Link href="/dashboard/users" className="hover:text-sky-400">
+                <Link
+                  href="/dashboard/userHome"
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700 transition"
+                >
+                  <Home size={18} />
+                  Home
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/dashboard/users"
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700 transition"
+                >
+                  <Users size={18} />
                   Manage Users
                 </Link>
               </li>
+
               <li>
-                <Link href="/dashboard/bookings" className="hover:text-sky-400">
+                <Link
+                  href="/dashboard/bookings"
+                  className="flex items-center gap-3 p-2 rounded-lg ransition"
+                >
+                  <BookOpen size={18} />
                   All Bookings
-                </Link>
-              </li>
-              <li>
-                <Link href="/dashboard/settings" className="hover:text-sky-400">
-                  Settings
                 </Link>
               </li>
             </>
@@ -106,7 +91,12 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 bg-slate-100">{children}</div>
+      {/* 🔥 FIX HERE: text-gray-800 add kora hoise */}
+      <div className="flex-1 p-6 bg-slate-100 text-gray-800">
+        <div className="bg-white p-6 rounded-2xl shadow-md min-h-[80vh]">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

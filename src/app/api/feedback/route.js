@@ -1,7 +1,5 @@
 import { dbConnect } from "@/lib/dbConnect";
-
 const careCollection = await dbConnect("babyCare");
-
 // Data Get
 export async function GET() {
   try {

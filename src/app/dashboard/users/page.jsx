@@ -40,7 +40,7 @@ export default function Users() {
           <tbody className="text-gray-600 text-sm">
             {loading ? (
               <tr>
-                {/* colSpan 6 করা হয়েছে কারণ আপনার কলাম ৬টি */}
+                
                 <td colSpan="6" className="text-center py-10 text-lg">
                   Loading bookings...
                 </td>
@@ -53,7 +53,7 @@ export default function Users() {
                 >
                   <td className="px-6 py-4">{i + 1}</td>
 
-                  {/* ইমেজ শো করার জন্য <img> ট্যাগ ব্যবহার করা হয়েছে */}
+                
                   <td className="px-6 py-4">
                     {item.image ? (
                       <img
@@ -62,7 +62,7 @@ export default function Users() {
                         className="w-10 h-10 rounded-full object-cover border border-gray-200"
                         onError={(e) => {
                           e.target.src = "https://via.placeholder.com/40";
-                        }} // ইমেজ না থাকলে প্লেসহোল্ডার দেখাবে
+                        }}  
                       />
                     ) : (
                       <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs">
