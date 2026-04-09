@@ -8,12 +8,12 @@ export default function UserBookings() {
   useEffect(() => {
     fetch("/api/feedback")
       .then((res) => res.json())
-      .then((data) => {
-        setData(data);
+      .then((result) => {
+        setData(result.careData || []);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Fetch error:", err);
+        console.error("Error:", err);
         setLoading(false);
       });
   }, []);
@@ -118,7 +118,7 @@ export default function UserBookings() {
 
                     <td className="px-5 py-5 text-center">
                       <span
-                        className={`px-3 py-1.5 rounded-full text-xs font-bold border ${
+                        className={`px-4 py-2 rounded-full text-xs font-bold border ${
                           item.status === "Pending"
                             ? "bg-amber-50 text-amber-600 border-amber-200"
                             : item.status === "Accepted"

@@ -1,17 +1,15 @@
 "use client";
-import UserDrapdown from "@/components/userDrapdown";
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 
-export default function Users() {
+export default function UserAdminDrapdown() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/feedback")
+    fetch("/api/userFeedback")
       .then((res) => res.json())
       .then((data) => {
-        setData(data.usersData);
+        setData(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -19,46 +17,6 @@ export default function Users() {
         setLoading(false);
       });
   }, []);
-  // User delete handle
-  const handleDelete = async (id) => {
-    const confirm = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    });
-
-    if (!confirm.isConfirmed) return;
-
-    try {
-      const res = await fetch(`/api/feedback/${id}`, {
-        method: "DELETE",
-      });
-
-      const result = await res.json();
-
-      if (!res.ok) throw new Error(result.error || "Delete failed");
-
-      setData((prevData) => prevData.filter((item) => item._id !== id));
-
-      Swal.fire({
-        icon: "success",
-        title: "Deleted!",
-        text: "Item deleted successfully",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.message,
-      });
-    }
-  };
 
   return (
     <div className="container mx-auto p-6">
@@ -77,7 +35,6 @@ export default function Users() {
               <th className="px-6 py-4 border-b">Email</th>
               <th className="px-6 py-4 border-b">Role</th>
               <th className="px-6 py-4 border-b">CreatedAt</th>
-              <th className="px-6 py-4 border-b">Actions</th>
             </tr>
           </thead>
 
@@ -118,33 +75,22 @@ export default function Users() {
                     {item.name || "N/A"}
                   </td>
                   <td className="px-6 py-4">{item.email || "N/A"}</td>
-
-                  <UserDrapdown
-                    orderId={item._id}
-                    initialRole={item.role}
-                  ></UserDrapdown>
+                  <td className="px-6 py-4">
+                    <span className="capitalize px-2 py-1 rounded bg-blue-50 text-blue-600 text-xs">
+                      {item.role || "User"}
+                    </span>
+                  </td>
                   <td className="px-6 py-4">
                     {item.createdAt
                       ? new Date(item.createdAt).toLocaleDateString()
                       : "N/A"}
                   </td>
-                  <td>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className="group relative p-2 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 active:scale-90"
-                      title="Delete Booking"
-                    >
-                      <span className="font-bold border border-red-200 px-3 py-2 rounded-lg group-hover:bg-red-500 group-hover:text-white transition-all cursor-pointer">
-                        Delete
-                      </span>
-                    </button>
-                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="text-center py-10 text-gray-500">
-                  Users Not Found.
+                <td colSpan="6" className="text-center py-10 text-gray-500">
+                  No bookings found.
                 </td>
               </tr>
             )}

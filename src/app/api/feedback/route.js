@@ -1,20 +1,28 @@
 import { dbConnect } from "@/lib/dbConnect";
-const careCollection = await dbConnect("babyCare");
-// Data Get
+
+// GET Method
 export async function GET() {
   try {
-    const result = await careCollection.find().toArray();
+    const careCollection = await dbConnect("babyCare");
+    const usersCollection = await dbConnect("users");
 
-    return Response.json(result);
+    const careResult = await careCollection.find().toArray();
+    const usersResult = await usersCollection.find().toArray();
+
+    return Response.json({
+      careData: careResult,
+      usersData: usersResult,
+    });
   } catch (error) {
     console.error("GET Error:", error);
     return Response.json({ message: "Failed to fetch data" }, { status: 500 });
   }
 }
 
-// Data Post
+// POST Method
 export async function POST(request) {
   try {
+    const careCollection = await dbConnect("babyCare");
     const { message } = await request.json();
 
     if (!message || typeof message !== "string") {
@@ -26,6 +34,7 @@ export async function POST(request) {
 
     const newFeedback = {
       message,
+      status: "pending",
       date: new Date().toISOString(),
     };
 

@@ -129,7 +129,7 @@ const ElderlyCareService = () => {
                 <div className="flex justify-between items-center p-6 bg-slate-50/80 rounded-2xl border border-slate-100">
                   <span className="text-slate-500 font-semibold">Per Day</span>
                   <span className="text-3xl font-bold text-[#0ea5e9]">
-                    ৳5000
+                    ৳6000
                   </span>
                 </div>
               </div>

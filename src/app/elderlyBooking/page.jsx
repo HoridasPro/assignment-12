@@ -4,8 +4,6 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
 import { postUsers } from "@/action/server/auth";
- 
- 
 
 const divisions = [
   "Dhaka",
@@ -19,7 +17,7 @@ const divisions = [
 ];
 
 const ElderlyBooking = () => {
-  const [service, setService] = useState("");
+  const [service, setService] = useState("Elderly Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
   const [division, setDivision] = useState("");
@@ -29,7 +27,10 @@ const ElderlyBooking = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const ratePerUnit = 500;
+  const ratePerHours = 600;
+  const ratePerDays = 6000;
+  const currentTotal =
+    type === "Hours" ? ratePerHours * amount : ratePerDays * amount;
 
   const handleBooking = async () => {
     setLoading(true);
@@ -42,7 +43,7 @@ const ElderlyBooking = () => {
       district,
       city,
       address,
-      total: ratePerUnit * amount,
+      total: currentTotal,
       status: "pending",
     };
 
@@ -102,12 +103,14 @@ const ElderlyBooking = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-4">
                 <label>Service</label>
-                <input
-                  type="text"
+
+                <select
                   value={service}
                   onChange={(e) => setService(e.target.value)}
                   className="w-full p-2 border rounded-lg"
-                />
+                >
+                  <option>Elderly Booking</option>
+                </select>
               </div>
               <div>
                 <label>Type</label>
@@ -192,7 +195,9 @@ const ElderlyBooking = () => {
             <div className="flex justify-between">
               <span>Baby Care</span>
               <span>
-                ৳{ratePerUnit} × {amount} {type}
+                {type == "Hours"
+                  ? `৳ ${ratePerHours} * ${amount} ${type}`
+                  : `৳ ${ratePerDays} * ${amount} ${type}`}
               </span>
             </div>
 
@@ -200,7 +205,7 @@ const ElderlyBooking = () => {
 
             <div className="flex justify-between font-bold">
               <span>Total</span>
-              <span>৳{ratePerUnit * amount}</span>
+              <span>৳{currentTotal}</span>
             </div>
 
             <button

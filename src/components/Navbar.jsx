@@ -28,7 +28,7 @@ const Navbar = () => {
       </Link>
 
       {/* Navigation Links */}
-      <div className="flex items-center gap-8">
+      <div className="flex  items-center gap-8">
         <Link
           href="/"
           className={`px-4 py-2 rounded-lg font-medium ${
@@ -127,3 +127,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+ 

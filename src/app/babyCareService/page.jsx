@@ -110,7 +110,7 @@ const BabyCareService = () => {
 
                 <div className="flex justify-between p-5 bg-slate-50 rounded-xl">
                   <span>Per Day</span>
-                  <span className="text-2xl font-bold text-sky-500">৳4000</span>
+                  <span className="text-2xl font-bold text-sky-500">৳5000</span>
                 </div>
               </div>
 

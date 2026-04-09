@@ -1,6 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { FaCalendarCheck, FaClock, FaCheckCircle } from "react-icons/fa"; // আইকন ব্যবহারের জন্য
+import {
+  FaCalendarCheck,
+  FaClock,
+  FaCheckCircle,
+  FaClipboardCheck,
+} from "react-icons/fa";
 
 const UserHome = () => {
   const [data, setData] = useState([]);
@@ -9,8 +14,8 @@ const UserHome = () => {
   useEffect(() => {
     fetch("/api/feedback")
       .then((res) => res.json())
-      .then((data) => {
-        setData(data);
+      .then((result) => {
+        setData(result.careData || []);
         setLoading(false);
       })
       .catch((err) => {
@@ -19,7 +24,6 @@ const UserHome = () => {
       });
   }, []);
 
-  // স্ট্যাটাস অনুযায়ী ফিল্টার করার জন্য (অপশনাল কিন্তু সুন্দর দেখাবে)
   const pendingBookings = data.filter(
     (item) => item.status === "pending",
   ).length;
@@ -34,7 +38,7 @@ const UserHome = () => {
     <div className="p-6 md:p-10">
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-          Welcome Back!
+          State Manegement
         </h1>
         <p className="text-gray-500 mt-1">
           Here is a quick overview of your bookings.
@@ -72,11 +76,12 @@ const UserHome = () => {
             </h2>
           </div>
         </div>
-        {/* Pending Bookings Card */}
+
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition-shadow">
-          <div className="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 text-2xl">
-            <FaClock />
+          <div className="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-green-600 text-2xl">
+            <FaCheckCircle />
           </div>
+
           <div>
             <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">
               Confirm
@@ -87,11 +92,11 @@ const UserHome = () => {
           </div>
         </div>
 
-        {/* Accepted Bookings Card */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition-shadow">
-          <div className="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-green-600 text-2xl">
-            <FaCheckCircle />
+          <div className="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-2xl">
+            <FaClipboardCheck />
           </div>
+
           <div>
             <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">
               Completed
@@ -103,7 +108,6 @@ const UserHome = () => {
         </div>
       </div>
 
-      {/* Loading state logic for the whole page if needed */}
       {loading && (
         <div className="mt-10 flex items-center gap-3 text-gray-400 italic">
           <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>

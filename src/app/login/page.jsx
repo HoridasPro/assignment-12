@@ -69,7 +69,7 @@ export default function LoginPage() {
         icon: "error",
         title: "Login Failed",
         text: result.error,
-        confirmButtonColor: "#f97316",
+        confirmButtonColor: "#12A4E4",
       });
       setLoading(false);
     } else {
@@ -97,8 +97,9 @@ export default function LoginPage() {
               name="email"
               type="email"
               placeholder="Enter your email"
-              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 ${
-                errors.email ? "border-red-500" : ""
+              style={{ "--tw-ring-color": "#12A4E4" }}
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.email ? "border-red-500" : "focus:border-[#12A4E4]"
               }`}
             />
             {errors.email && (
@@ -114,8 +115,9 @@ export default function LoginPage() {
                 name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 ${
-                  errors.password ? "border-red-500" : ""
+                style={{ "--tw-ring-color": "#12A4E4" }}
+                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                  errors.password ? "border-red-500" : "focus:border-[#12A4E4]"
                 }`}
               />
               <button
@@ -138,7 +140,8 @@ export default function LoginPage() {
           <div className="text-right">
             <Link
               href="/forgot-password"
-              className="text-sm text-blue-500 hover:underline"
+              style={{ color: "#12A4E4" }}
+              className="text-sm hover:underline"
             >
               Forgot Password?
             </Link>
@@ -147,7 +150,8 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors cursor-pointer disabled:bg-gray-400"
+            style={{ backgroundColor: "#12A4E4" }}
+            className="w-full px-4 py-2 text-white rounded-md hover:opacity-90 transition-opacity cursor-pointer disabled:bg-gray-400"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
@@ -164,7 +168,11 @@ export default function LoginPage() {
 
         <p className="text-sm text-gray-500 mt-6 text-center">
           Don’t have an account?{" "}
-          <Link href="/register" className="text-blue-500 underline">
+          <Link
+            href="/register"
+            style={{ color: "#12A4E4" }}
+            className="underline"
+          >
             Register
           </Link>
         </p>

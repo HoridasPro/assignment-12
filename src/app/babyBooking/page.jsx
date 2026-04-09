@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation"; // Added missing useRouter import
 import { Calendar, MapPin } from "lucide-react";
 import { postUsers } from "@/action/server/auth";
 
@@ -16,7 +17,7 @@ const divisions = [
 ];
 
 const BabyBooking = () => {
-  const [service, setService] = useState("");
+  const [service, setService] = useState("Baby Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
   const [division, setDivision] = useState("");
@@ -25,8 +26,25 @@ const BabyBooking = () => {
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const ratePerUnit = 500;
+  const router = useRouter(); // Initialize router
+  const ratePerHours = 500;
+  const ratePerDays = 5000;
+  const currentTotal =
+    type === "Hours" ? ratePerHours * amount : ratePerDays * amount;
+
   const handleBooking = async () => {
+    // --- Validation Start ---
+    if (!service || !division || !district || !city || !address || amount < 1) {
+      Swal.fire({
+        icon: "warning",
+        title: "Missing Information",
+        text: "Please fill in all the fields before confirming.",
+        confirmButtonColor: "#0ea5e9",
+      });
+      return;
+    }
+    // --- Validation End ---
+
     setLoading(true);
 
     const bookingData = {
@@ -37,7 +55,7 @@ const BabyBooking = () => {
       district,
       city,
       address,
-      total: ratePerUnit * amount,
+      total: currentTotal,
       status: "pending",
     };
 
@@ -95,12 +113,13 @@ const BabyBooking = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-4">
                 <label>Service</label>
-                <input
-                  type="text"
+                <select
                   value={service}
                   onChange={(e) => setService(e.target.value)}
                   className="w-full p-2 border rounded-lg"
-                />
+                >
+                  <option>Baby Booking</option>
+                </select>
               </div>
               <div>
                 <label>Type</label>
@@ -144,7 +163,9 @@ const BabyBooking = () => {
                 >
                   <option value="">Select division</option>
                   {divisions.map((div) => (
-                    <option key={div}>{div}</option>
+                    <option key={div} value={div}>
+                      {div}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -185,7 +206,9 @@ const BabyBooking = () => {
             <div className="flex justify-between">
               <span>Baby Care</span>
               <span>
-                ৳{ratePerUnit} × {amount} {type}
+                {type == "Hours"
+                  ? `৳ ${ratePerHours} * ${amount} ${type}`
+                  : `৳ ${ratePerDays} * ${amount} ${type}`}
               </span>
             </div>
 
@@ -193,13 +216,13 @@ const BabyBooking = () => {
 
             <div className="flex justify-between font-bold">
               <span>Total</span>
-              <span>৳{ratePerUnit * amount}</span>
+              <span>৳{currentTotal}</span>
             </div>
 
             <button
               onClick={handleBooking}
               disabled={loading}
-              className="w-full bg-sky-500 text-white py-3 rounded-xl mt-4 cursor-pointer"
+              className="w-full bg-sky-500 text-white py-3 rounded-xl mt-4 cursor-pointer disabled:bg-sky-300"
             >
               {loading ? "Processing..." : "Confirm Booking"}
             </button>

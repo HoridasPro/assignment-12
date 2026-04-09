@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { LayoutDashboard, Users, Settings, BookOpen, Home } from "lucide-react";
+import { LayoutDashboard, Users, BookOpen, Home } from "lucide-react";
 
 export default function DashboardLayout({ children }) {
   const { data: session, status } = useSession();
@@ -12,6 +12,9 @@ export default function DashboardLayout({ children }) {
   }
 
   const isUser = session?.user?.role === "user";
+  if (!session?.user) {
+    return <div className="p-6 text-center">User not available</div>;
+  }
 
   return (
     <div className="flex min-h-screen">
@@ -27,7 +30,7 @@ export default function DashboardLayout({ children }) {
             <>
               <li>
                 <Link
-                  href="/dashboard/userHome"
+                  href="/dashboard"
                   className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700 transition"
                 >
                   <Home size={18} />
@@ -46,7 +49,7 @@ export default function DashboardLayout({ children }) {
 
               <li>
                 <Link
-                  href="/dashboard/users"
+                  href="/dashboard/userAdminDrapdown"
                   className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700 transition"
                 >
                   <Users size={18} />
@@ -58,7 +61,7 @@ export default function DashboardLayout({ children }) {
             <>
               <li>
                 <Link
-                  href="/dashboard/userHome"
+                  href="/dashboard"
                   className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700 transition"
                 >
                   <Home size={18} />
@@ -91,7 +94,6 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Main Content */}
-      {/* 🔥 FIX HERE: text-gray-800 add kora hoise */}
       <div className="flex-1 p-6 bg-slate-100 text-gray-800">
         <div className="bg-white p-6 rounded-2xl shadow-md min-h-[80vh]">
           {children}

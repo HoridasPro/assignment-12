@@ -59,9 +59,12 @@ const HeroSection = () => {
             variants={fadeInUp}
             className="flex flex-wrap gap-4 mb-10"
           >
-            <button className="bg-[#12a4e4] hover:bg-[#0e8bc4] text-white px-7 py-3 rounded-lg font-bold text-sm flex items-center gap-2 transition-all active:scale-95 shadow-md">
+            <Link
+              href="babyCareService"
+              className="bg-[#12a4e4] hover:bg-[#0e8bc4] text-white px-7 py-3 rounded-lg font-bold text-sm flex items-center gap-2 transition-all active:scale-95 shadow-md"
+            >
               Book Now <span className="text-lg">→</span>
-            </button>
+            </Link>
             <Link
               href="/aboutSection"
               className="bg-white border border-slate-100 px-7 py-3 rounded-lg font-bold text-sm text-slate-700 hover:bg-slate-50 transition-all shadow-sm"

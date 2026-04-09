@@ -1,6 +1,5 @@
 "use client";
 
-// import { postUser } from "@/actions/server/auth";
 import SocialLogin from "@/components/SocialLogin";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -8,7 +7,6 @@ import Swal from "sweetalert2";
 import Link from "next/link";
 import ImageUpload from "@/components/ImageUpload";
 import { postUser } from "@/actions/server/auth";
-// import { postUser } from "@/actions/server/auth";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -85,7 +83,7 @@ export default function RegisterPage() {
           icon: "success",
           title: "Registration Successful",
           text: "Please login",
-          confirmButtonColor: "#f97316",
+          confirmButtonColor: "#12A4E4",
         }).then(() => {
           router.push("/login");
         });
@@ -94,7 +92,7 @@ export default function RegisterPage() {
           icon: "error",
           title: "Registration Failed",
           text: result?.message || "Something went wrong",
-          confirmButtonColor: "#f97316",
+          confirmButtonColor: "#12A4E4",
         });
       }
     } catch (error) {
@@ -102,7 +100,7 @@ export default function RegisterPage() {
         icon: "error",
         title: "Registration Failed",
         text: error.message || "Something went wrong",
-        confirmButtonColor: "#f97316",
+        confirmButtonColor: "#12A4E4",
       });
     }
 
@@ -122,8 +120,9 @@ export default function RegisterPage() {
               name="name"
               type="text"
               placeholder="Enter your name"
-              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 ${
-                errors.name ? "border-red-500" : ""
+              style={{ "--tw-ring-color": "#12A4E4" }}
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.name ? "border-red-500" : "focus:border-[#12A4E4]"
               }`}
             />
             {errors.name && (
@@ -138,8 +137,9 @@ export default function RegisterPage() {
               name="email"
               type="email"
               placeholder="Enter your email"
-              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 ${
-                errors.email ? "border-red-500" : ""
+              style={{ "--tw-ring-color": "#12A4E4" }}
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.email ? "border-red-500" : "focus:border-[#12A4E4]"
               }`}
             />
             {errors.email && (
@@ -166,8 +166,9 @@ export default function RegisterPage() {
               name="password"
               type="password"
               placeholder="Enter your password"
-              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 ${
-                errors.password ? "border-red-500" : ""
+              style={{ "--tw-ring-color": "#12A4E4" }}
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.password ? "border-red-500" : "focus:border-[#12A4E4]"
               }`}
             />
             {errors.password && (
@@ -178,7 +179,8 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md cursor-pointer disabled:bg-gray-400 transition"
+            style={{ backgroundColor: "#12A4E4" }}
+            className="w-full text-white py-2 rounded-md cursor-pointer disabled:bg-gray-400 hover:opacity-90 transition"
           >
             {loading ? "Registering..." : "Register"}
           </button>
@@ -195,7 +197,11 @@ export default function RegisterPage() {
 
         <p className="text-sm text-gray-500 mt-6 text-center">
           Already have an account?{" "}
-          <Link href="/login" className="text-blue-500 hover:underline">
+          <Link
+            href="/login"
+            style={{ color: "#12A4E4" }}
+            className="hover:underline"
+          >
             Login
           </Link>
         </p>

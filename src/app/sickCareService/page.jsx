@@ -128,7 +128,7 @@ const SickCareService = () => {
                   <span className="text-slate-400 text-sm font-medium">
                     Per Day
                   </span>
-                  <span className="text-2xl font-bold text-sky-500">৳6500</span>
+                  <span className="text-2xl font-bold text-sky-500">৳8000</span>
                 </div>
               </div>
 

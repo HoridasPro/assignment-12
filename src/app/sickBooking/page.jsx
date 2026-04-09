@@ -17,7 +17,7 @@ const divisions = [
 ];
 
 const SickBooking = () => {
-  const [service, setService] = useState("");
+  const [service, setService] = useState("Sick Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
   const [division, setDivision] = useState("");
@@ -27,7 +27,10 @@ const SickBooking = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const ratePerUnit = 500;
+  const ratePerHours = 800;
+  const ratePerDays = 8000;
+  const currentTotal =
+    type === "Hours" ? ratePerHours * amount : ratePerDays * amount;
 
   const handleBooking = async () => {
     setLoading(true);
@@ -40,7 +43,7 @@ const SickBooking = () => {
       district,
       city,
       address,
-      total: ratePerUnit * amount,
+      total: currentTotal,
       status: "pending",
     };
 
@@ -98,12 +101,14 @@ const SickBooking = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-4">
                 <label>Service</label>
-                <input
-                  type="text"
+
+                <select
                   value={service}
                   onChange={(e) => setService(e.target.value)}
                   className="w-full p-2 border rounded-lg"
-                />
+                >
+                  <option>Sick Booking</option>
+                </select>
               </div>
               <div>
                 <label>Type</label>
@@ -188,7 +193,9 @@ const SickBooking = () => {
             <div className="flex justify-between">
               <span>Baby Care</span>
               <span>
-                ৳{ratePerUnit} × {amount} {type}
+                {type == "Hours"
+                  ? `৳ ${ratePerHours} * ${amount} ${type}`
+                  : `৳ ${ratePerDays} * ${amount} ${type}`}
               </span>
             </div>
 
@@ -196,7 +203,7 @@ const SickBooking = () => {
 
             <div className="flex justify-between font-bold">
               <span>Total</span>
-              <span>৳{ratePerUnit * amount}</span>
+              <span> {currentTotal}</span>
             </div>
 
             <button
