@@ -1,6 +1,135 @@
+// "use client";
+
+// import { Heart, ChevronDown } from "lucide-react";
+// import Link from "next/link";
+// import { useState } from "react";
+// import { usePathname } from "next/navigation";
+// import AuthButton from "./AuthButton";
+
+// const Navbar = () => {
+//   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+//   const pathname = usePathname();
+
+//   const isActive = (path) => pathname === path;
+
+//   const isServiceActive = [
+//     "/babyCareService",
+//     "/elderlyCareService",
+//     "/sickCareService",
+//   ].includes(pathname);
+
+//   return (
+//     <nav className="max-w-7xl mx-auto bg-white py-4 flex items-center justify-between">
+//       <Link href="/" className="flex items-center gap-2">
+//         <Heart className="text-[#0ea5e9]" size={28} />
+//         <h1 className="text-xl font-bold">
+//           Care<span className="text-[#0ea5e9]">.xyz</span>
+//         </h1>
+//       </Link>
+
+//       {/* Navigation Links */}
+//       <div className="flex items-center gap-2">
+//         <Link
+//           href="/"
+//           className={`px-4 py-2 rounded-lg font-medium ${
+//             isActive("/") ? "bg-sky-50" : "text-gray-600"
+//           }`}
+//         >
+//           Home
+//         </Link>
+
+//         {/* Services Dropdown */}
+//         <div
+//           className="relative"
+//           onMouseEnter={() => setIsDropdownOpen(true)}
+//           onMouseLeave={() => setIsDropdownOpen(false)}
+//         >
+//           <button
+//             className={`flex items-center gap-1 font-medium transition-colors px-4 py-2 rounded-lg ${
+//               isServiceActive
+//                 ? "text-[#0ea5e9]"
+//                 : "text-gray-600 hover:text-gray-900"
+//             }`}
+//           >
+//             Services
+//             <ChevronDown
+//               size={18}
+//               className={`transition-transform ${
+//                 isDropdownOpen ? "rotate-180" : ""
+//               }`}
+//             />
+//           </button>
+
+//           {isDropdownOpen && (
+//             <div className="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-xl shadow-lg py-2 z-50">
+//               <Link
+//                 href="/babyCareService"
+//                 className={`block px-4 py-2 rounded-lg transition-colors ${
+//                   isActive("/babyCareService")
+//                     ? "bg-sky-500 text-white"
+//                     : "text-gray-700 hover:bg-sky-50 hover:text-sky-600"
+//                 }`}
+//               >
+//                 Baby Care
+//               </Link>
+//               <Link
+//                 href="/elderlyCareService"
+//                 className={`block px-4 py-2 rounded-lg transition-colors ${
+//                   isActive("/elderlyCareService")
+//                     ? "bg-sky-500 text-white"
+//                     : "text-gray-700 hover:bg-sky-50 hover:text-sky-600"
+//                 }`}
+//               >
+//                 Elderly Care
+//               </Link>
+//               <Link
+//                 href="/sickCareService"
+//                 className={`block px-4 py-2 rounded-lg transition-colors ${
+//                   isActive("/sickCareService")
+//                     ? "bg-sky-500 text-white"
+//                     : "text-gray-700 hover:bg-sky-50 hover:text-sky-600"
+//                 }`}
+//               >
+//                 Sick Care
+//               </Link>
+//             </div>
+//           )}
+//         </div>
+
+//         <Link
+//           href="/aboutSection"
+//           className={`px-4 py-2 font-medium transition-colors rounded-lg ${
+//             isActive("/aboutSection")
+//               ? "bg-sky-50"
+//               : "text-gray-600 hover:text-gray-900"
+//           }`}
+//         >
+//           About
+//         </Link>
+//         <Link
+//           href="/contactSection"
+//           className={`px-4 py-2 font-medium transition-colors rounded-lg ${
+//             isActive("/contactSection")
+//               ? "bg-sky-50"
+//               : "text-gray-600 hover:text-gray-900"
+//           }`}
+//         >
+//           Contact
+//         </Link>
+//       </div>
+
+//       {/* Auth Buttons */}
+//       <div className="flex items-center gap-6">
+//         <AuthButton />
+//       </div>
+//     </nav>
+//   );
+// };
+
+// export default Navbar;
 "use client";
 
-import { Heart, ChevronDown } from "lucide-react";
+import { Heart, ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -8,6 +137,7 @@ import AuthButton from "./AuthButton";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
 
   const isActive = (path) => pathname === path;
@@ -19,7 +149,8 @@ const Navbar = () => {
   ].includes(pathname);
 
   return (
-    <nav className="max-w-7xl mx-auto bg-white py-4 flex items-center justify-between">
+    <nav className="max-w-7xl mx-auto bg-white py-4 flex items-center justify-between px-4 relative">
+      {/* Logo */}
       <Link href="/" className="flex items-center gap-2">
         <Heart className="text-[#0ea5e9]" size={28} />
         <h1 className="text-xl font-bold">
@@ -27,8 +158,8 @@ const Navbar = () => {
         </h1>
       </Link>
 
-      {/* Navigation Links */}
-      <div className="flex items-center gap-2">
+      {/* Desktop Menu */}
+      <div className="hidden md:flex items-center gap-2">
         <Link
           href="/"
           className={`px-4 py-2 rounded-lg font-medium ${
@@ -64,7 +195,7 @@ const Navbar = () => {
             <div className="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-xl shadow-lg py-2 z-50">
               <Link
                 href="/babyCareService"
-                className={`block px-4 py-2 rounded-lg transition-colors ${
+                className={`block px-4 py-2 rounded-lg ${
                   isActive("/babyCareService")
                     ? "bg-sky-500 text-white"
                     : "text-gray-700 hover:bg-sky-50 hover:text-sky-600"
@@ -72,9 +203,10 @@ const Navbar = () => {
               >
                 Baby Care
               </Link>
+
               <Link
                 href="/elderlyCareService"
-                className={`block px-4 py-2 rounded-lg transition-colors ${
+                className={`block px-4 py-2 rounded-lg ${
                   isActive("/elderlyCareService")
                     ? "bg-sky-500 text-white"
                     : "text-gray-700 hover:bg-sky-50 hover:text-sky-600"
@@ -82,9 +214,10 @@ const Navbar = () => {
               >
                 Elderly Care
               </Link>
+
               <Link
                 href="/sickCareService"
-                className={`block px-4 py-2 rounded-lg transition-colors ${
+                className={`block px-4 py-2 rounded-lg ${
                   isActive("/sickCareService")
                     ? "bg-sky-500 text-white"
                     : "text-gray-700 hover:bg-sky-50 hover:text-sky-600"
@@ -98,7 +231,7 @@ const Navbar = () => {
 
         <Link
           href="/aboutSection"
-          className={`px-4 py-2 font-medium transition-colors rounded-lg ${
+          className={`px-4 py-2 font-medium rounded-lg ${
             isActive("/aboutSection")
               ? "bg-sky-50"
               : "text-gray-600 hover:text-gray-900"
@@ -106,9 +239,10 @@ const Navbar = () => {
         >
           About
         </Link>
+
         <Link
           href="/contactSection"
-          className={`px-4 py-2 font-medium transition-colors rounded-lg ${
+          className={`px-4 py-2 font-medium rounded-lg ${
             isActive("/contactSection")
               ? "bg-sky-50"
               : "text-gray-600 hover:text-gray-900"
@@ -118,10 +252,54 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Auth Buttons */}
-      <div className="flex items-center gap-6">
+      {/* Auth Desktop */}
+      <div className="hidden md:flex items-center gap-6">
         <AuthButton />
       </div>
+
+      {/* Mobile Button */}
+      <button
+        className="md:hidden"
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+      >
+        {isMobileOpen ? <X /> : <Menu />}
+      </button>
+
+      {/* Mobile Menu */}
+      {isMobileOpen && (
+        <div className="absolute top-16 left-0 w-full bg-white shadow-lg flex flex-col gap-3 p-4 md:hidden z-50">
+          <Link href="/" onClick={() => setIsMobileOpen(false)}>
+            Home
+          </Link>
+
+          <Link href="/babyCareService" onClick={() => setIsMobileOpen(false)}>
+            Baby Care
+          </Link>
+
+          <Link
+            href="/elderlyCareService"
+            onClick={() => setIsMobileOpen(false)}
+          >
+            Elderly Care
+          </Link>
+
+          <Link href="/sickCareService" onClick={() => setIsMobileOpen(false)}>
+            Sick Care
+          </Link>
+
+          <Link href="/aboutSection" onClick={() => setIsMobileOpen(false)}>
+            About
+          </Link>
+
+          <Link href="/contactSection" onClick={() => setIsMobileOpen(false)}>
+            Contact
+          </Link>
+
+          <div className="pt-2">
+            <AuthButton />
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
