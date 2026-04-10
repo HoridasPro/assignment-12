@@ -23,8 +23,10 @@ export const postUser = async (payload) => {
       : "user";
 
     const newUser = {
+      number: payload.number,
       name: payload.name,
       email: payload.email.toLowerCase(),
+      ConNumber: payload.ConNumber,
       password: hashPassword,
       image: payload.image || null,
       role: assignedRole,

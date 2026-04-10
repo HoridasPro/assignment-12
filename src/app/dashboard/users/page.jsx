@@ -86,7 +86,7 @@ export default function Users() {
             {loading ? (
               <tr>
                 <td colSpan="6" className="text-center py-10 text-lg">
-                  Loading bookings...
+                  Loading Users...
                 </td>
               </tr>
             ) : data.length > 0 ? (

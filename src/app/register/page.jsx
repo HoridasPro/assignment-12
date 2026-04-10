@@ -13,8 +13,10 @@ export default function RegisterPage() {
 
   const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState({
+    number: "",
     name: "",
     email: "",
+    ConNumber: "",
     image: "",
     password: "",
   });
@@ -25,13 +27,30 @@ export default function RegisterPage() {
     setLoading(true);
 
     const form = e.target;
+    const number = form.number.value.trim();
     const name = form.name.value.trim();
     const email = form.email.value.trim();
+    const ConNumber = form.ConNumber.value.trim();
     const password = form.password.value.trim();
     const image = imageUrl.trim();
 
     let hasError = false;
-    const newErrors = { name: "", email: "", image: "", password: "" };
+    const newErrors = {
+      number: "",
+      name: "",
+      email: "",
+      ConNumber: "",
+      image: "",
+      password: "",
+    };
+    // NID No
+    if (!number) {
+      newErrors.number = "NID number is required";
+      hasError = true;
+    } else if (number.length < 10) {
+      newErrors.number = "NID number must be 10 numbers";
+      hasError = true;
+    }
 
     // Name validation
     if (!name) {
@@ -45,6 +64,14 @@ export default function RegisterPage() {
       hasError = true;
     } else if (!/^\S+@\S+\.\S+$/.test(email)) {
       newErrors.email = "Invalid email format";
+      hasError = true;
+    }
+    // Contact Number
+    if (!ConNumber) {
+      newErrors.ConNumber = "Contact number is required";
+      hasError = true;
+    } else if (ConNumber.length < 11) {
+      newErrors.ConNumber = "Contact number must be 11 numbers";
       hasError = true;
     }
 
@@ -76,7 +103,14 @@ export default function RegisterPage() {
     }
 
     try {
-      const result = await postUser({ name, email, image, password });
+      const result = await postUser({
+        number,
+        name,
+        email,
+        ConNumber,
+        image,
+        password,
+      });
 
       if (result?.success) {
         Swal.fire({
@@ -113,6 +147,22 @@ export default function RegisterPage() {
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
 
         <form onSubmit={handleRegister} className="space-y-4">
+          {/* NID No */}
+          <div>
+            <label className="block text-sm font-medium mb-1">NID No</label>
+            <input
+              name="number"
+              type="number"
+              placeholder="Enter your NID number"
+              style={{ "--tw-ring-color": "#12A4E4" }}
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.number ? "border-red-500" : "focus:border-[#12A4E4]"
+              }`}
+            />
+            {errors.number && (
+              <p className="text-red-500 text-sm mt-1">{errors.number}</p>
+            )}
+          </div>
           {/* Name */}
           <div>
             <label className="block text-sm font-medium mb-1">Name</label>
@@ -144,6 +194,24 @@ export default function RegisterPage() {
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
+          </div>
+          {/* Contact number */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Contact Number
+            </label>
+            <input
+              name="ConNumber"
+              type="number"
+              placeholder="Enter your contact number"
+              style={{ "--tw-ring-color": "#12A4E4" }}
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.ConNumber ? "border-red-500" : "focus:border-[#12A4E4]"
+              }`}
+            />
+            {errors.ConNumber && (
+              <p className="text-red-500 text-sm mt-1">{errors.ConNumber}</p>
             )}
           </div>
 
