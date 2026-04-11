@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }) {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-64 bg-slate-900 text-black p-5 shadow-lg">
+      <div className="w-64 bg-slate-100 text-gray-800 p-5 shadow-lg">
         <h2 className="text-2xl font-bold mb-8 text-sky-400 flex items-center gap-2">
           <LayoutDashboard size={22} />
           {isUser ? "User Dashboard" : "Admin Dashboard"}

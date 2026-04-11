@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <NextAuthProvider>
           <Navbar></Navbar>
           <ReactQueryProvider>
-            <main >{children}</main>
+            <main className="min-h-[calc(100vh-384px)]">{children}</main>
           </ReactQueryProvider>
           <Footer></Footer>
         </NextAuthProvider>
