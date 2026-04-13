@@ -11,7 +11,7 @@ export default function Bookings() {
     fetch("/api/feedback")
       .then((res) => res.json())
       .then((result) => {
-        setData(result.careData || []);
+        setData(result.allCareData || []);
         setLoading(false);
       })
       .catch((err) => {
@@ -87,6 +87,9 @@ export default function Bookings() {
                   Service Details
                 </th>
                 <th className="px-5 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-5 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                   Booking Type
                 </th>
                 <th className="px-5 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
@@ -152,6 +155,11 @@ export default function Bookings() {
                       </div>
                     </td>
 
+                    <td className="px-5 py-5 text-sm">
+                      <span className="px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-bold border border-gray-200">
+                        {item.email || "N/A"}
+                      </span>
+                    </td>
                     <td className="px-5 py-5 text-sm">
                       <span className="px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-bold border border-gray-200">
                         {item.type || "N/A"}

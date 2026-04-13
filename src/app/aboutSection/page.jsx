@@ -29,8 +29,8 @@ const AboutSection = () => {
   }, []);
 
   const stats = [
-    { Icon: Users, title: "10,000+", subtitle: "Families Served" },
-    { Icon: ShieldCheck, title: "500+", subtitle: "Certified Caregivers" },
+    { Icon: Users, title: "10+", subtitle: "Families Served" },
+    { Icon: ShieldCheck, title: "5+", subtitle: "Certified Caregivers" },
     { Icon: Heart, title: "98%", subtitle: "Satisfaction Rate" },
     { Icon: Clock, title: "24/7", subtitle: "Support Available" },
   ];

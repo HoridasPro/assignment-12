@@ -28,7 +28,7 @@ const UserHome = () => {
     (item) => item.status === "pending",
   ).length;
   const confirmBookings = data.filter(
-    (item) => item.status === "confirm",
+    (item) => item.status === "confirmed",
   ).length;
   const completedBookings = data.filter(
     (item) => item.status === "completed",
@@ -84,7 +84,7 @@ const UserHome = () => {
 
           <div>
             <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">
-              Confirm
+              Confirmed
             </p>
             <h2 className="text-3xl font-black text-gray-900">
               {loading ? "..." : confirmBookings}

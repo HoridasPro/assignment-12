@@ -48,6 +48,9 @@ export default function UserBookings() {
                   Service Details
                 </th>
                 <th className="px-5 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-5 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                   Booking Type
                 </th>
                 <th className="px-5 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
@@ -100,6 +103,11 @@ export default function UserBookings() {
                         {item.role || "User"}
                       </p>
                     </td>
+                    <td className="px-5 py-5 text-sm">
+                      <p className="text-gray-900 font-bold">
+                        {item.email || "N/A"}
+                      </p>
+                    </td>
 
                     <td className="px-5 py-5 text-sm">
                       <span className="px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-bold">
@@ -121,7 +129,7 @@ export default function UserBookings() {
                         className={`px-4 py-2 rounded-full text-xs font-bold border ${
                           item.status === "Pending"
                             ? "bg-amber-50 text-amber-600 border-amber-200"
-                            : item.status === "Accepted"
+                            : item.status === "Completed"
                               ? "bg-green-50 text-green-600 border-green-200"
                               : "bg-blue-50 text-blue-600 border-blue-200"
                         }`}

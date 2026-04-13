@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
 import { postUsers } from "@/action/server/auth";
+import { useSession } from "next-auth/react"; // useSession ইমপোর্ট করা হয়েছে
 
 const divisions = [
   "Dhaka",
@@ -17,6 +18,7 @@ const divisions = [
 ];
 
 const SickBooking = () => {
+  const { data: session, status } = useSession(); // সেশন চেক
   const [service, setService] = useState("Sick Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
@@ -27,12 +29,43 @@ const SickBooking = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+
+  // --- Login Check Logic ---
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+  // -------------------------
+
   const ratePerHours = 800;
   const ratePerDays = 8000;
   const currentTotal =
     type === "Hours" ? ratePerHours * amount : ratePerDays * amount;
 
   const handleBooking = async () => {
+    // --- Validation Start ---
+    if (!division || !district || !city || !address) {
+      Swal.fire({
+        icon: "warning",
+        title: "Missing Information",
+        text: "Please fill in all location fields (Division, District, City, and Address).",
+        confirmButtonColor: "#0ea5e9",
+      });
+      return;
+    }
+
+    if (amount < 1) {
+      Swal.fire({
+        icon: "warning",
+        title: "Invalid Amount",
+        text: "Amount must be at least 1.",
+        confirmButtonColor: "#0ea5e9",
+      });
+      return;
+    }
+    // --- Validation End ---
+
     setLoading(true);
 
     const bookingData = {
@@ -45,6 +78,7 @@ const SickBooking = () => {
       address,
       total: currentTotal,
       status: "pending",
+      userEmail: session?.user?.email, // সেশন থেকে ইমেইল নেয়া
     };
 
     try {
@@ -54,10 +88,8 @@ const SickBooking = () => {
         Swal.fire({
           icon: "success",
           title: "Sick Booking Successful",
-          text: "Redirecting...",
+          text: "Booking has been recorded.",
           confirmButtonColor: "#0ea5e9",
-        }).then(() => {
-          router.push("/login");
         });
       } else {
         Swal.fire({
@@ -78,6 +110,11 @@ const SickBooking = () => {
 
     setLoading(false);
   };
+
+  // লোডিং অবস্থায় পেজ ব্ল্যাঙ্ক দেখাবে যেন হুট করে কন্টেন্ট না দেখা যায়
+  if (status === "loading") return null;
+  // আনঅথেন্টিকেটেড হলে নিচের কন্টেন্ট রেন্ডার হবে না রিডাইরেক্ট হওয়া পর্যন্ত
+  if (status === "unauthenticated") return null;
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6">
@@ -101,7 +138,6 @@ const SickBooking = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-4">
                 <label>Service</label>
-
                 <select
                   value={service}
                   onChange={(e) => setService(e.target.value)}
@@ -164,6 +200,7 @@ const SickBooking = () => {
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
                   className="w-full p-2 border rounded-lg"
+                  placeholder="Enter district"
                 />
               </div>
             </div>
@@ -175,6 +212,7 @@ const SickBooking = () => {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="w-full p-2 border rounded-lg"
+                placeholder="Enter city"
               />
             </div>
 
@@ -184,6 +222,7 @@ const SickBooking = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full p-2 border rounded-lg"
+                placeholder="House no, Road no, Area..."
               />
             </div>
           </section>
@@ -191,7 +230,7 @@ const SickBooking = () => {
           {/* Summary */}
           <section className="bg-white p-6 rounded-xl border shadow-sm">
             <div className="flex justify-between">
-              <span>Baby Care</span>
+              <span>Sick Care</span>
               <span>
                 {type == "Hours"
                   ? `৳ ${ratePerHours} * ${amount} ${type}`
@@ -203,13 +242,13 @@ const SickBooking = () => {
 
             <div className="flex justify-between font-bold">
               <span>Total</span>
-              <span> {currentTotal}</span>
+              <span> ৳ {currentTotal}</span>
             </div>
 
             <button
               onClick={handleBooking}
               disabled={loading}
-              className="w-full bg-sky-500 text-white py-3 rounded-xl mt-4 cursor-pointer"
+              className="w-full bg-sky-500 text-white py-3 rounded-xl mt-4 cursor-pointer hover:bg-sky-600 transition-colors disabled:bg-sky-300"
             >
               {loading ? "Processing..." : "Confirm Booking"}
             </button>

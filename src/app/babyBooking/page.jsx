@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; // useEffect যোগ করা হয়েছে
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation"; // Added missing useRouter import
+import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
 import { postUsers } from "@/action/server/auth";
+import { useSession } from "next-auth/react"; // useSession ইমপোর্ট করা হয়েছে
 
 const divisions = [
   "Dhaka",
@@ -17,6 +18,7 @@ const divisions = [
 ];
 
 const BabyBooking = () => {
+  const { data: session, status } = useSession(); // সেশন চেক করার জন্য
   const [service, setService] = useState("Baby Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
@@ -26,7 +28,16 @@ const BabyBooking = () => {
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
+
+  // --- Login Check Logic Start ---
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+  // --- Login Check Logic End ---
+
   const ratePerHours = 500;
   const ratePerDays = 5000;
   const currentTotal =
@@ -34,11 +45,21 @@ const BabyBooking = () => {
 
   const handleBooking = async () => {
     // --- Validation Start ---
-    if (!service || !division || !district || !city || !address || amount < 1) {
+    if (!division || !district || !city || !address) {
       Swal.fire({
         icon: "warning",
         title: "Missing Information",
-        text: "Please fill in all the fields before confirming.",
+        text: "Please fill in all location fields (Division, District, City, and Address).",
+        confirmButtonColor: "#0ea5e9",
+      });
+      return;
+    }
+
+    if (amount < 1) {
+      Swal.fire({
+        icon: "warning",
+        title: "Invalid Amount",
+        text: "Amount must be at least 1.",
         confirmButtonColor: "#0ea5e9",
       });
       return;
@@ -57,6 +78,7 @@ const BabyBooking = () => {
       address,
       total: currentTotal,
       status: "pending",
+      userEmail: session?.user?.email, // ইউজার ট্র্যাকিং এর জন্য
     };
 
     try {
@@ -66,10 +88,8 @@ const BabyBooking = () => {
         Swal.fire({
           icon: "success",
           title: "Baby Booking Successful",
-          text: "Redirecting...",
+          text: "Booking has been recorded.",
           confirmButtonColor: "#0ea5e9",
-        }).then(() => {
-          router.push("/login");
         });
       } else {
         Swal.fire({
@@ -90,6 +110,10 @@ const BabyBooking = () => {
 
     setLoading(false);
   };
+
+  // স্ট্যাটাস লোডিং থাকলে পেজ কন্টেন্ট দেখাবে না
+  if (status === "loading") return null;
+  if (status === "unauthenticated") return null;
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6">
@@ -177,6 +201,7 @@ const BabyBooking = () => {
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
                   className="w-full p-2 border rounded-lg"
+                  placeholder="Enter district"
                 />
               </div>
             </div>
@@ -188,6 +213,7 @@ const BabyBooking = () => {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="w-full p-2 border rounded-lg"
+                placeholder="Enter city"
               />
             </div>
 
@@ -197,6 +223,7 @@ const BabyBooking = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full p-2 border rounded-lg"
+                placeholder="House no, Road no, Area..."
               />
             </div>
           </section>
@@ -222,7 +249,7 @@ const BabyBooking = () => {
             <button
               onClick={handleBooking}
               disabled={loading}
-              className="w-full bg-sky-500 text-white py-3 rounded-xl mt-4 cursor-pointer disabled:bg-sky-300"
+              className="w-full bg-sky-500 text-white py-3 rounded-xl mt-4 cursor-pointer hover:bg-sky-600 transition-colors disabled:bg-sky-300"
             >
               {loading ? "Processing..." : "Confirm Booking"}
             </button>

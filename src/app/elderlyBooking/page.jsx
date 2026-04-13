@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
 import { postUsers } from "@/action/server/auth";
+import { useSession } from "next-auth/react"; // useSession ইমপোর্ট করা হয়েছে
 
 const divisions = [
   "Dhaka",
@@ -17,6 +18,7 @@ const divisions = [
 ];
 
 const ElderlyBooking = () => {
+  const { data: session, status } = useSession(); // সেশন স্ট্যাটাস চেক
   const [service, setService] = useState("Elderly Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
@@ -27,12 +29,42 @@ const ElderlyBooking = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+
+  // --- Login Check Logic ---
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
   const ratePerHours = 600;
   const ratePerDays = 6000;
   const currentTotal =
     type === "Hours" ? ratePerHours * amount : ratePerDays * amount;
 
   const handleBooking = async () => {
+    // --- Validation Start ---
+    if (!division || !district || !city || !address) {
+      Swal.fire({
+        icon: "warning",
+        title: "Missing Information",
+        text: "Please fill in all location fields (Division, District, City, and Address).",
+        confirmButtonColor: "#0ea5e9",
+      });
+      return;
+    }
+
+    if (amount < 1) {
+      Swal.fire({
+        icon: "warning",
+        title: "Invalid Amount",
+        text: "Amount must be at least 1.",
+        confirmButtonColor: "#0ea5e9",
+      });
+      return;
+    }
+    // --- Validation End ---
+
     setLoading(true);
 
     const bookingData = {
@@ -45,6 +77,7 @@ const ElderlyBooking = () => {
       address,
       total: currentTotal,
       status: "pending",
+      userEmail: session?.user?.email, // ইউজারের ইমেইল ট্র্যাক করার জন্য
     };
 
     try {
@@ -54,10 +87,8 @@ const ElderlyBooking = () => {
         Swal.fire({
           icon: "success",
           title: "Elderly Booking Successful",
-          text: "Redirecting...",
+          text: "Your booking is being processed.",
           confirmButtonColor: "#0ea5e9",
-        }).then(() => {
-          router.push("/login");
         });
       } else {
         Swal.fire({
@@ -78,6 +109,10 @@ const ElderlyBooking = () => {
 
     setLoading(false);
   };
+
+  // সেশন চেক হওয়া পর্যন্ত পেজ কন্টেন্ট দেখাবে না
+  if (status === "loading") return null;
+  if (status === "unauthenticated") return null;
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6">
@@ -103,7 +138,6 @@ const ElderlyBooking = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-4">
                 <label>Service</label>
-
                 <select
                   value={service}
                   onChange={(e) => setService(e.target.value)}
@@ -166,6 +200,7 @@ const ElderlyBooking = () => {
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
                   className="w-full p-2 border rounded-lg"
+                  placeholder="Enter district"
                 />
               </div>
             </div>
@@ -177,6 +212,7 @@ const ElderlyBooking = () => {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="w-full p-2 border rounded-lg"
+                placeholder="Enter city"
               />
             </div>
 
@@ -186,6 +222,7 @@ const ElderlyBooking = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full p-2 border rounded-lg"
+                placeholder="House no, Road no, Area..."
               />
             </div>
           </section>
@@ -193,7 +230,7 @@ const ElderlyBooking = () => {
           {/* Summary */}
           <section className="bg-white p-6 rounded-xl border shadow-sm">
             <div className="flex justify-between">
-              <span>Baby Care</span>
+              <span>Elderly Care</span>
               <span>
                 {type == "Hours"
                   ? `৳ ${ratePerHours} * ${amount} ${type}`
@@ -211,7 +248,7 @@ const ElderlyBooking = () => {
             <button
               onClick={handleBooking}
               disabled={loading}
-              className="w-full bg-sky-500 text-white py-3 rounded-xl mt-4 cursor-pointer"
+              className="w-full bg-sky-500 text-white py-3 rounded-xl mt-4 cursor-pointer hover:bg-sky-600 transition-colors disabled:bg-sky-300"
             >
               {loading ? "Processing..." : "Confirm Booking"}
             </button>

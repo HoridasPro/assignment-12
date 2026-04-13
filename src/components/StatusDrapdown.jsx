@@ -49,8 +49,8 @@ const StatusDrapdown = ({ orderId, initialStatus }) => {
         <option value="pending" className="text-orange-600">
           🕒 Pending
         </option>
-        <option value="confirm" className="text-blue-600">
-          🔵 Confirm
+        <option value="confirmed" className="text-blue-600">
+          🔵 Confirmed
         </option>
         <option value="completed" className="text-green-600">
           ✅ Completed
