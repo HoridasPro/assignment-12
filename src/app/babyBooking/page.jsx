@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react"; // useEffect যোগ করা হয়েছে
+import React, { useState, useEffect } from "react"; 
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
 import { postUsers } from "@/action/server/auth";
-import { useSession } from "next-auth/react"; // useSession ইমপোর্ট করা হয়েছে
+import { useSession } from "next-auth/react";  
 
 const divisions = [
   "Dhaka",
@@ -18,7 +18,7 @@ const divisions = [
 ];
 
 const BabyBooking = () => {
-  const { data: session, status } = useSession(); // সেশন চেক করার জন্য
+  const { data: session, status } = useSession();  
   const [service, setService] = useState("Baby Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
@@ -30,13 +30,13 @@ const BabyBooking = () => {
 
   const router = useRouter();
 
-  // --- Login Check Logic Start ---
+ 
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
   }, [status, router]);
-  // --- Login Check Logic End ---
+ 
 
   const ratePerHours = 500;
   const ratePerDays = 5000;
@@ -44,7 +44,7 @@ const BabyBooking = () => {
     type === "Hours" ? ratePerHours * amount : ratePerDays * amount;
 
   const handleBooking = async () => {
-    // --- Validation Start ---
+ 
     if (!division || !district || !city || !address) {
       Swal.fire({
         icon: "warning",
@@ -64,7 +64,7 @@ const BabyBooking = () => {
       });
       return;
     }
-    // --- Validation End ---
+ 
 
     setLoading(true);
 
@@ -78,7 +78,7 @@ const BabyBooking = () => {
       address,
       total: currentTotal,
       status: "pending",
-      userEmail: session?.user?.email, // ইউজার ট্র্যাকিং এর জন্য
+      userEmail: session?.user?.email, 
     };
 
     try {
@@ -111,7 +111,7 @@ const BabyBooking = () => {
     setLoading(false);
   };
 
-  // স্ট্যাটাস লোডিং থাকলে পেজ কন্টেন্ট দেখাবে না
+   
   if (status === "loading") return null;
   if (status === "unauthenticated") return null;
 

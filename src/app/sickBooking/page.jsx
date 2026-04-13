@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
 import { postUsers } from "@/action/server/auth";
-import { useSession } from "next-auth/react"; // useSession ইমপোর্ট করা হয়েছে
+import { useSession } from "next-auth/react";
 
 const divisions = [
   "Dhaka",
@@ -18,7 +18,7 @@ const divisions = [
 ];
 
 const SickBooking = () => {
-  const { data: session, status } = useSession(); // সেশন চেক
+  const { data: session, status } = useSession();
   const [service, setService] = useState("Sick Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
@@ -30,13 +30,11 @@ const SickBooking = () => {
 
   const router = useRouter();
 
-  // --- Login Check Logic ---
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
   }, [status, router]);
-  // -------------------------
 
   const ratePerHours = 800;
   const ratePerDays = 8000;
@@ -44,7 +42,6 @@ const SickBooking = () => {
     type === "Hours" ? ratePerHours * amount : ratePerDays * amount;
 
   const handleBooking = async () => {
-    // --- Validation Start ---
     if (!division || !district || !city || !address) {
       Swal.fire({
         icon: "warning",
@@ -64,7 +61,6 @@ const SickBooking = () => {
       });
       return;
     }
-    // --- Validation End ---
 
     setLoading(true);
 
@@ -78,7 +74,7 @@ const SickBooking = () => {
       address,
       total: currentTotal,
       status: "pending",
-      userEmail: session?.user?.email, // সেশন থেকে ইমেইল নেয়া
+      userEmail: session?.user?.email,
     };
 
     try {
@@ -111,9 +107,8 @@ const SickBooking = () => {
     setLoading(false);
   };
 
-  // লোডিং অবস্থায় পেজ ব্ল্যাঙ্ক দেখাবে যেন হুট করে কন্টেন্ট না দেখা যায়
   if (status === "loading") return null;
-  // আনঅথেন্টিকেটেড হলে নিচের কন্টেন্ট রেন্ডার হবে না রিডাইরেক্ট হওয়া পর্যন্ত
+
   if (status === "unauthenticated") return null;
 
   return (

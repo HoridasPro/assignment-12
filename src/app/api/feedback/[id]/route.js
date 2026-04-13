@@ -2,11 +2,10 @@ import { dbConnect } from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
-// ✅ PATCH (Update Role or Booking Status)
 export async function PATCH(req, { params }) {
   try {
-    const { id } = await params; // ✅ FIXED (no await)
-    const { role, status } = await req.json(); // ✅ both নেওয়া হলো
+    const { id } = await params;
+    const { role, status } = await req.json();
 
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
@@ -15,7 +14,6 @@ export async function PATCH(req, { params }) {
     const userCollection = await dbConnect("users");
     const careCollection = await dbConnect("babyCare");
 
-    // ✅ 1. Update User Role
     if (role) {
       const result = await userCollection.updateOne(
         { _id: new ObjectId(id) },
@@ -31,7 +29,6 @@ export async function PATCH(req, { params }) {
       });
     }
 
-    // ✅ 2. Update Booking Status
     if (status) {
       const result = await careCollection.updateOne(
         { _id: new ObjectId(id) },
@@ -59,10 +56,9 @@ export async function PATCH(req, { params }) {
   }
 }
 
-// ✅ DELETE (User or Booking delete)
 export async function DELETE(req, { params }) {
   try {
-    const { id } = await params; // ✅ FIXED
+    const { id } = await params;
 
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
@@ -71,7 +67,6 @@ export async function DELETE(req, { params }) {
     const userCollection = await dbConnect("users");
     const careCollection = await dbConnect("babyCare");
 
-    // ✅ Try deleting from both collections
     const res1 = await userCollection.deleteOne({
       _id: new ObjectId(id),
     });
@@ -91,4 +86,3 @@ export async function DELETE(req, { params }) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
- 

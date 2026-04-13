@@ -11,7 +11,6 @@ const Navbar = () => {
   const { data: session, status } = useSession();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // ইউজার ডাটার জন্য স্টেট (Name এবং Image রাখার জন্য)
   const [userData, setUserData] = useState({
     name: "",
     image: "",
@@ -27,9 +26,6 @@ const Navbar = () => {
     "/sickCareService",
   ].includes(pathname);
 
-  // ==========================================
-  // MONGODB থেকে লেটেস্ট ডাটা ফেচ করা
-  // ==========================================
   const loadingUserData = useCallback(async () => {
     if (status !== "authenticated" || !session?.user?.email) {
       setUserData({ name: "", image: "" });
@@ -37,7 +33,6 @@ const Navbar = () => {
     }
 
     try {
-      // সরাসরি API থেকে লেটেস্ট ডাটা কল করা হচ্ছে
       const res = await fetch(`/api/user?email=${session.user.email}`);
       if (res.ok) {
         const data = await res.json();
@@ -46,7 +41,6 @@ const Navbar = () => {
           image: data.image || session.user.image || "",
         });
       } else {
-        // API এরর দিলে সেশন থেকে ডাটা ব্যাকআপ হিসেবে রাখা
         setUserData({
           name: session.user.name || "User",
           image: session.user.image || "",
@@ -61,11 +55,9 @@ const Navbar = () => {
     }
   }, [session, status]);
 
-  // মাউন্ট হওয়ার সময় এবং প্রোফাইল আপডেট ইভেন্ট ঘটলে রান করবে
   useEffect(() => {
     loadingUserData();
 
-    // প্রোফাইল পেজ থেকে পাঠানো কাস্টম ইভেন্ট লিসেনার
     window.addEventListener("profileUpdated", loadingUserData);
 
     return () => {
@@ -173,7 +165,6 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Auth Buttons - এখানে নাম এবং ইমেজ দুটোই পাস করা হচ্ছে */}
       <div className="flex items-center gap-6">
         <AuthButton profileImage={userData.image} userName={userData.name} />
       </div>

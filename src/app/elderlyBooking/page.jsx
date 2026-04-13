@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { Calendar, MapPin } from "lucide-react";
 import { postUsers } from "@/action/server/auth";
-import { useSession } from "next-auth/react"; // useSession ইমপোর্ট করা হয়েছে
+import { useSession } from "next-auth/react";
 
 const divisions = [
   "Dhaka",
@@ -18,7 +18,7 @@ const divisions = [
 ];
 
 const ElderlyBooking = () => {
-  const { data: session, status } = useSession(); // সেশন স্ট্যাটাস চেক
+  const { data: session, status } = useSession();
   const [service, setService] = useState("Elderly Booking");
   const [amount, setAmount] = useState(1);
   const [type, setType] = useState("Hours");
@@ -30,7 +30,6 @@ const ElderlyBooking = () => {
 
   const router = useRouter();
 
-  // --- Login Check Logic ---
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
@@ -43,7 +42,6 @@ const ElderlyBooking = () => {
     type === "Hours" ? ratePerHours * amount : ratePerDays * amount;
 
   const handleBooking = async () => {
-    // --- Validation Start ---
     if (!division || !district || !city || !address) {
       Swal.fire({
         icon: "warning",
@@ -63,7 +61,6 @@ const ElderlyBooking = () => {
       });
       return;
     }
-    // --- Validation End ---
 
     setLoading(true);
 
@@ -77,7 +74,7 @@ const ElderlyBooking = () => {
       address,
       total: currentTotal,
       status: "pending",
-      userEmail: session?.user?.email, // ইউজারের ইমেইল ট্র্যাক করার জন্য
+      userEmail: session?.user?.email,
     };
 
     try {
@@ -110,7 +107,6 @@ const ElderlyBooking = () => {
     setLoading(false);
   };
 
-  // সেশন চেক হওয়া পর্যন্ত পেজ কন্টেন্ট দেখাবে না
   if (status === "loading") return null;
   if (status === "unauthenticated") return null;
 
