@@ -39,14 +39,9 @@ const AuthButton = ({ isMobile = false, profileImage, userName }) => {
         <>
           {/* Profile Image & Name Section */}
           <div
-            className="flex items-center gap-2 cursor-pointer"
+            className="relative group flex items-center gap-2 cursor-pointer"
             onClick={() => setOpen(!open)}
           >
-            {!isMobile && (
-              <span className="text-sm font-semibold text-gray-700 hidden lg:block">
-                {userName || session?.user?.name || "User"}
-              </span>
-            )}
             <img
               src={profileImage || "/default-avatar.png"}
               alt="profile"
@@ -54,6 +49,16 @@ const AuthButton = ({ isMobile = false, profileImage, userName }) => {
                 isMobile ? "w-12 h-12" : "w-10 h-10"
               }`}
             />
+            {!isMobile && (
+              <span
+                className="absolute left-1/2 -translate-x-1/2 top-10 
+      bg-black text-white text-xs px-2 py-1 rounded
+      opacity-0 group-hover:opacity-100 transition
+      whitespace-nowrap z-1 font-bold"
+              >
+                {userName || session?.user?.name || "User"}
+              </span>
+            )}
           </div>
 
           {/* Dropdown Menu */}
